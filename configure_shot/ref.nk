@@ -1,0 +1,149 @@
+#! C:/Program Files/Nuke12.1v2/nuke-12.1.2.dll -nx
+#write_info Write1 file:"" format:"3840 2160 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 741" fps:"24" colorspace:"Cineon" datatype:"16 bit" transfer:"(auto detect)" views:"main" timecode:"01:00:00:00" colorManagement:"Nuke"
+version 12.1 v2
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="960" y="0" w="958" h="1000" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="571"/>
+            <splitter orientation="2">
+                <split size="962"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                </dock>
+            </splitter>
+            <split size="339"/>
+            <splitter orientation="2">
+                <split size="479"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                </dock>
+                <split size="479"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="DopeSheet.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="Viewer.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/rojas/.nuke/Pipeline/configure_shot/ref.nk
+ last_frame 741
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0xc9c9c9ff
+ note_font_size 42
+ xpos -70
+ ypos -563
+ bdwidth 180
+ bdheight 203
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode4
+ tile_color 0x997d4dff
+ note_font_size 42
+ xpos -77
+ ypos -214
+ bdwidth 190
+ bdheight 217
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label PLATE
+ note_font "Verdana Bold"
+ note_font_size 41
+ xpos -52
+ ypos -533
+}
+StickyNote {
+ inputs 0
+ name StickyNote4
+ label OUTPUT
+ note_font "Verdana Bold"
+ note_font_size 41
+ xpos -73
+ ypos -192
+}
+Read {
+ inputs 0
+ file_type dpx
+ file E:/NTPO/plates/NTP_NTFLX_Locked_20250226_VFX_26/NTP_Netflix_Locked_P3_D60_20250226_VFX_26_%05d.dpx
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
+ last 741
+ frame_mode "start at"
+ frame 1001
+ origlast 741
+ origset true
+ name Read1
+ xpos -22
+ ypos -465
+}
+Dot {
+ name Dot2
+ xpos 12
+ ypos -132
+}
+Group {
+ name out_metadata
+ tile_color 0xff
+ xpos -22
+ ypos -100
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -46
+  ypos 283
+ }
+ NoOp {
+  name NoOp1
+  xpos -46
+  ypos 323
+ }
+ Output {
+  name Output1
+  xpos -46
+  ypos 423
+ }
+end_group
+Write {
+ colorspace Cineon
+ file_type dpx
+ datatype "16 bit"
+ create_directories true
+ checkHashOnRead false
+ name Write1
+ xpos -22
+ ypos -59
+}
+Viewer {
+ frame 1
+ frame_range 1-741
+ name Viewer1
+ xpos -22
+ ypos 199
+}
