@@ -103,23 +103,11 @@ def configure_shot():
     # Set backdrop node
     create_backdrop([read_node], "PLATE", 0x55994d00, 62)
 
-    # Create postage stamp
-    postage_stamp = nuke.createNode("PostageStamp", inpanel=False)
-    postage_stamp.setXYpos(node_xpos + 480, node_ypos - 20)
-    postage_stamp.setInput(0, read_node)
-    postage_stamp["name"].setValue("_PLATE_")
-    postage_stamp["tile_color"].setValue(0xff)
-    postage_stamp["hide_input"].setValue(True)
-    postage_stamp_xpos = int(postage_stamp.xpos())
-    postage_stamp_ypos = int(postage_stamp.ypos())
-
     # Create denoiser
     denoiser = nuke.createNode("OFXcom.absoft.neatvideo4_v4", inpanel=False)
-    denoiser.setXYpos(postage_stamp_xpos, postage_stamp_ypos + 80)
-    denoiser.setInput(0, postage_stamp)
+    denoiser.setXYpos(node_xpos, node_ypos + 300)
+    denoiser.setInput(0, read_node)
 
-    # Create denoise backdrop
-    create_backdrop([postage_stamp, denoiser], "DENOISE", 0x85994dff, 62)
 
 
 if __name__ == "__main__":
