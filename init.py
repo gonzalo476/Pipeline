@@ -6,3 +6,4 @@
 import nuke
 
 nuke.pluginAddPath('./configure_shot')
+nuke.pluginAddPath('./multi_import')
