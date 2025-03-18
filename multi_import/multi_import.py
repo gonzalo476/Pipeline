@@ -67,23 +67,6 @@ def create_backdrop(nodes, title="", tile_color=0x9bff, font_size=21, ofst=100):
     return bckDp
 
 def create_read_node(folder_path):
-    """Creates a Nuke Read node from a sequence of images in the specified folder.
-
-    This function retrieves the first file in the folder, extracts the frame range,
-    constructs the proper file path format for Nuke, and creates a Read node with
-    the appropriate settings.
-
-    Args:
-        folder_path (str): The directory containing the image sequence.
-
-    Returns:
-        nuke.Node: The created Read node.
-
-    Raises:
-        IndexError: If the folder is empty or does not contain a valid sequence.
-        ValueError: If the frame range format is incorrect.
-        OSError: If there are issues accessing the folder or files.
-    """
     folder_info = nuke.getFileNameList(folder_path)
     file_name, frame_range = folder_info[0].split(" ")
     first_frame, last_frame = frame_range.split("-")
@@ -107,7 +90,7 @@ def create_read_node(folder_path):
     return read_node
 
 
-def get_file_folders(folder_list, extensions):
+def get_folders(folder_list, extensions):
     valid_folders = set()
 
     for folder in folder_list:
@@ -123,9 +106,9 @@ def get_file_folders(folder_list, extensions):
 
 
 
-def import_from_list(folder_list):
+def create_reads_from_list(folder_list):
     file_extensions = (".exr", ".dpx", ".jpeg", ".png")
-    folders_found = get_file_folders(folder_list, file_extensions)
+    folders_found = get_folders(folder_list, file_extensions)
 
     node_offset = 250
     last_xpos = 0
@@ -152,11 +135,10 @@ def multi_import():
     folder_list = nuke.getFilename("Select your folders", multiple=True)
 
     if folder_list is None:
-        print("Cancelled...")
         return
 
     if folder_list != [""]:
-        import_from_list(folder_list)
+        create_reads_from_list(folder_list)
     else:
         nuke.message("Please select at least one folder to proceed.")
 
